@@ -1,0 +1,49 @@
+name: STAGE - Sync website
+
+on:
+  push:
+    branches:
+    - stage
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    # Environment setup
+    - name: Pull source code
+      uses: actions/checkout@master
+          
+    - name: Set Node.js
+      uses: actions/setup-node@master
+      with:
+        node-version: 10.x
+
+    # Build
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build static pages
+      run: npm run build
+
+    # Upload build public folder to S3 bucket
+    - name: AWS S3 deploy
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.STAGE_AWS_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}   # optional: defaults to us-east-1
+        SOURCE_DIR: 'public/'                   # optional: defaults to entire repository
+
+      # Invalidate cache on Cloudfront
+    - name: invalidate
+      uses: chetan/invalidate-cloudfront-action@master
+      env:
+        DISTRIBUTION: ${{ secrets.STAGE_CLOUDFRONT_DISTRIBUTION }}
+        PATHS: '/index.html'
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

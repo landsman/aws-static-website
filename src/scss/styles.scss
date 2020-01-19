@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap&subset=latin-ext');
+
+@import "variables";
+@import '~bootstrap/scss/bootstrap';
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-weight: 900;
+}
+
+img {
+  margin-bottom: 15px;
+  max-width: 100%;
+}
+
+img:hover {
+  animation: pulse 0.5s;
+}
+
+
+.layout_header {
+  background: #d4d3d3;
+}
+
+.layout_footer {
+  text-align: center;
+  padding: 5rem 0 5rem;
+  background: #d4d3d3;
+}
+
+.welcome {
+  background: #efefef;
+
+  h1 {
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  img {
+    margin: 0;
+  }
+
+  cite {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    margin-top: 3rem;
+    font-weight: 600;
+  }
+}
+
+.navigation-main {
+  background: #d4d3d3;
+
+  nav {
+    padding: 0;
+
+    &:hover {
+      .navbar-toggler {
+        outline: none;
+      }
+    }
+  }
+
+  .navbar-brand {
+
+    a {
+      padding: 36px 40px;
+    }
+
+    @include media-breakpoint-down(md) {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin: 0 !important;
+
+      a {
+        padding: 20px 0;
+        display: block;
+      }
+    }
+
+
+  }
+
+  a.nav-link {
+    color: #000000;
+
+    @include media-breakpoint-down(sm) {
+      padding: 60px 21px
+    }
+
+    @include media-breakpoint-down(md) {
+      padding: 60px 21px
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding: 60px 1rem;
+    }
+
+    span {
+      font-size: 1.1rem;
+      position: relative;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+
+      &:before, &:after {
+        visibility: hidden;
+        transition: visibility 0.5s;
+      }
+    }
+
+    &:hover {
+      background: #efefef;
+    }
+
+  }
+
+  // burger
+  @include media-breakpoint-down(md)
+  {
+    .collapsed {
+      &>div {
+        background: transparent;
+      }
+
+      a {
+        //color: #FFFFFF;
+
+        &.nav-link {
+          padding: 1rem 1rem;
+        }
+      }
+    }
+
+    .collapse {
+      margin: 0rem -1rem 1rem -1rem;
+    }
+
+    ul {
+      display: block;
+      text-align: center;
+
+      li {
+        display: block;
+      }
+
+      span {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+}
+
+.page-text, .product-detail {
+  padding: 4rem 0 4rem 0;
+}
+
+
+.block {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
